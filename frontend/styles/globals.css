@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind screens;
+@tailwind utilities;
+
+#searchBar {
+  text-indent: 5px;
+}
