@@ -1,21 +1,23 @@
-import { SELECTED_LINK } from "../types";
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   selectedLink: {
     id: "",
     url: "",
   },
 };
-export const selectedLinkReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SELECTED_LINK:
-      return {
-        ...state,
-        selectedLink: {
-          id: action.payload.id,
-          url: action.payload.url,
-        },
-      };
-    default:
-      return state;
-  }
-};
+
+const selectedLinkSlice = createSlice({
+  name: "selectedLink",
+  initialState,
+  reducers: {
+    selectLink: (state, action) => {
+      state.selectedLink.id = action.payload.id;
+      state.selectedLink.url = action.payload.url;
+    },
+  },
+});
+
+export const { selectLink } = selectedLinkSlice.actions
+
+export default selectedLinkSlice.reducer

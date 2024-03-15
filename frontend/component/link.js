@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
-import { selectedLink } from "../store/actions/linkAction";
+import { selectLink } from "../store/reducers/selectedlinkReducer";
 import log from "../utils/log";
+
 export default function Link(props) {
   const dispatch = useDispatch();
   const show = () => {
-    dispatch(selectedLink(props.linkdataid, props.cname));
+    dispatch(selectLink({ id: props.linkdataid, url: props.cname }));
   };
   return (
     <div

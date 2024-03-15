@@ -1,16 +1,16 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore } from '@reduxjs/toolkit'
+import linkReducer from "./reducers/linkReducers";
+import categoryReducer from "./reducers/categoryReducers";
+import selectedCatReducer from "./reducers/selectedCatReducer";
+import selectedLinkReducer from "./reducers/selectedlinkReducer";
 
-import rootReducers from "./reducers";
-
-const initialState = {};
-const middlware = [thunk];
-
-const store = createStore(
-  rootReducers,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middlware))
-);
+const store = configureStore({
+	reducer:{
+		link: linkReducer,
+		category: categoryReducer,
+		selectedCategory: selectedCatReducer,
+		selectedLink: selectedLinkReducer
+	}
+})
 
 export default store;

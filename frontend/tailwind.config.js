@@ -1,6 +1,8 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+	content: [
+    './pages/**/*.{html,js, jsx, md, mdx}',
+    './components/**/*.{html,js, jsx, md, mdx}',
+  ],
   theme: {
     minWidth: {
       0: "0",

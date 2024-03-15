@@ -1,4 +1,5 @@
-import { SELECETD_CATEGORY } from "../types";
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   selectedCategory: {
     id: "",
@@ -6,17 +7,19 @@ const initialState = {
     icon: "",
   },
 };
-export const selectedCatReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SELECETD_CATEGORY:
-      return {
-        selectedCategory: {
-          id: action.payload.id,
-          name: action.payload.name,
-          icon: action.payload.icon,
-        },
-      };
-    default:
-      return state;
-  }
-};
+
+const selectedCategorySlice = createSlice({
+  name: "selectedCategory",
+  initialState,
+  reducers: {
+    selectCategory: (state, action) => {
+      state.selectedCategory.id = action.payload.id;
+      state.selectedCategory.name = action.payload.name;
+      state.selectedCategory.icon = action.payload.icon;
+    },
+  },
+});
+
+export const { selectCategory } = selectedCategorySlice.actions;
+
+export default selectedCategorySlice.reducer;

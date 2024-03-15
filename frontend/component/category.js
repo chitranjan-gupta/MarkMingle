@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { fetchlinks } from "../store/actions/linkAction";
+import { getLinks } from "../store/reducers/linkReducers";
+import { selectCategory } from "../store/reducers/selectedCatReducer";
 import log from "../utils/log";
-import { selectedCategory } from "../store/actions/categoryAction";
+
 export default function Category(props) {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export default function Category(props) {
   const [dSub, setdSub] = useState(false);
   const [category, setCategory] = useState({});
   const [subCategories, setSubCategories] = useState([]);
+
   const getDetail = async (catID) => {
     try {
       const res = await fetch("http://localhost:5000/api/categorys/get", {
@@ -31,6 +33,7 @@ export default function Category(props) {
       log(err);
     }
   };
+
   const getSubCategories = async (catID) => {
     try {
       const res = await fetch("http://localhost:5000/api/categorys/sub", {
@@ -52,10 +55,14 @@ export default function Category(props) {
       log(err);
     }
   };
+
   const show = () => {
-    dispatch(fetchlinks(props.dataid));
-    dispatch(selectedCategory(props.dataid, category.name, ""));
+    dispatch(getLinks({ catID: props.dataid }));
+    dispatch(
+      selectCategory({ id: props.dataid, name: category.name, icon: "" })
+    );
   };
+
   const open = (event) => {
     if (!dSub) {
       setdSub(true);
@@ -81,6 +88,7 @@ export default function Category(props) {
       setdSub(false);
     }
   };
+
   useEffect(() => {
     if (!loading) {
       getDetail(props.dataid)
@@ -97,12 +105,14 @@ export default function Category(props) {
         });
     }
   }, []);
+
   useEffect(() => {
     return function cleanup() {
       setLoading(true);
       console.log("[log]Cleanup");
     };
   }, []);
+
   return (
     <li className="flex flex-col">
       <div className="flex flex-row justify-between items-center p-2 hover:bg-gray-300 cursor-pointer">
